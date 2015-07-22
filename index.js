@@ -1,54 +1,42 @@
 (function () {
 	'use strict';
 
-	usingFunction();
-	usingClass();
+	usingExtends();
 
-	function usingFunction() {
-		console.log("Using a function to create an object");
-		function Bear() {
-			if (this) {
-				this.color = "Brown";
-				console.log("Inside a " + this.color + " bear");
-
-				this.sayHello = function () {
-					console.log("Hello!");
-				}
-			} else {
-				console.log("Inside a bear");
-			}
-		}
-
-		// 'this' does not exist inside Bear() with this call because
-		// no 'new' operator was used
-		Bear();
-
-		let brownBear = new Bear();
-
-		console.log(brownBear.color);
-		brownBear.sayHello();
-	}
-
-	function usingClass() {
-		console.log("Using a class to create an object");
+	function usingExtends() {
+		console.log("Using a extends to 'inherit' from a class");
 		class Bear {
-			constructor() {
-				this.color = "Brown";
-
-				console.log("Inside a " + this.color + " bear");
+			constructor(color) {
+				this.color = color;
 			}
 
 			sayHello() {
-				console.log("Hello!");
+				console.log("Hello, I am a " + this.color + " bear");
 			}
 		}
 		
-		// Cannot call class constructors without 'new' keyword
-		// Bear();
-		
-		let brownBear = new Bear();
+		let brownBear = new Bear("brown");
 
-		console.log(brownBear.color);
 		brownBear.sayHello();
+		
+		class BlackBear extends Bear {
+			constructor() {
+				super("black");
+			}
+			
+			eatBerries(numberOfBerries) {
+				if (numberOfBerries < 10) {
+					console.log("I'm still hungry");
+				} else {
+					console.log("Nom nom nom");
+				}
+			}
+		}
+		
+		let blackBear = new BlackBear();
+		
+		blackBear.sayHello();
+		blackBear.eatBerries(4);
+		blackBear.eatBerries(30);
 	}
 } ());
