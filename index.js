@@ -1,45 +1,45 @@
 (function () {
 	'use strict';
 
-	usingNormalObjects();
-	usingDestructuring();
+	usingOrOperator();
+	usingDefaultParameters();
 
-	function usingNormalObjects() {
-		console.log("Using normal ES5 object literal syntax");
+	function usingOrOperator() {
+		console.log("Using the || operator for defaulting null params");
+
+		function say(something) {
+			something = something || 'nothing';
+			console.log(`Let's say ${something}`);
+		}
+
+		say("Hello");
+		say();
+
+		function sayAlot(thingsToSay) {
+			// arguments is an object, not an array!
+			var allThings = Array.prototype.slice.call(arguments);
+			
+			console.log(`Let's say ${allThings.join(', ')}`);
+		}
 		
-		let bearType = 'black';
-		let sound = 'raaaaawwwrr';
-		
-		let bear = { bearType: bearType, sound: sound };
-		
-		console.log(`Here is our bear: ${bear.bearType}, ${bear.sound}`);
-		
-		bear.bearType = "brown";
-		bear.sound = "zzZzzzZzz";
-		
-		bearType = bear.bearType;
-		sound = bear.sound;
-		
-		console.log(`Our ${bearType} bear says ${sound}`);
+		sayAlot("Hello", "Goodbye", "... What else is there to say?");
 	}
 
-	function usingDestructuring() {
-		console.log("Using object literal destructuring");
+	function usingDefaultParameters() {
+		console.log("Using ES6 default parameters");
+
+		function say(something = "nothing") {
+			console.log(`Let's say ${something}`);
+		}
+
+		say("Hello");
+		say();
 		
-		let bearType = 'black';
-		let sound = 'raaaaawwwrr';
+		function sayAlot(...thingsToSay) {
+			// thingsToSay is an array!
+			console.log(`Let's say ${thingsToSay.join(', ')}`);
+		}
 		
-		let bear = { bearType, sound };
-		
-		console.log(`Here is our bear: ${bear.bearType}, ${bear.sound}`);
-		
-		bear.bearType = "brown";
-		bear.sound = "zzZzzzZzz";
-		
-		// Because code blocks begin with a curly brace, statements must not begin with one.
-		// We must wrap this destructuring in ()
-		({ bearType, sound } = bear);
-		
-		console.log(`Our ${bearType} bear says ${sound}`);
+		sayAlot("Hello", "Goodbye", "... What else is there to say?");
 	}
 } ());
