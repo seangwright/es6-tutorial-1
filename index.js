@@ -1,25 +1,55 @@
 (function () {
 	'use strict';
 
-	usingNormalFunction();
-	usingArrowFunction();
+	usingFunctionWithThis();
+	setTimeout(function () {
+		usingArrowWithThis();
+	}, 1500);
 
-	function usingNormalFunction() {
+	function usingFunctionWithThis() {
 		console.log("Using a normal function");
 		
-		var goodBears = ['panda', 'black', 'grizzly', 'polar'].filter(function(value, index, array) {
-			if (value != 'grizzly' && value != 'polar') return true;
-			return false;
-		});
+		class Bear {
+			constructor() {
+				this.type = 'bear';
+			}
+			says(somethingToSay) {
+				console.log(this.type + ' says ' + somethingToSay);
+			}
+			saysLater(somethingToSay) {
+				setTimeout(function () {
+					// This will not work since 'this' will be undefined in the callback
+					console.log(this.type + ' says ' + somethingToSay);
+				}, 500)
+			}
+		}
 		
-		console.log(goodBears);
+		let bear = new Bear();
+		bear.says("Hello");
+		bear.saysLater("Goodbye");
 	}
 
-	function usingArrowFunction() {
-		console.log("Using an arrow function");
+	function usingArrowWithThis() {
+		console.log("Using a normal function");
 		
-		var goodBears = ['panda', 'black', 'grizzly', 'polar'].filter((bear) => (bear != 'grizzly' && bear != 'polar'));
+		class Bear {
+			constructor() {
+				this.type = 'bear';
+			}
+			says(somethingToSay) {
+				console.log(this.type + ' says ' + somethingToSay);
+			}
+			saysLater(somethingToSay) {
+				// This does work since the arrow function allows context of inner 'this'
+				// to inherit context of outer 'this'
+				setTimeout(() => {
+					console.log(this.type + ' says ' + somethingToSay);
+				}, 500);
+			}
+		}
 		
-		console.log(goodBears);
+		let bear = new Bear();
+		bear.says("Hello");
+		bear.saysLater("Goodbye");
 	}
 } ());
