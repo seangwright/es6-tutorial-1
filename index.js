@@ -1,34 +1,45 @@
 (function () {
 	'use strict';
 
-	usingJoin();
-	usingTemplateStrings();
+	usingNormalObjects();
+	usingDestructuring();
 
-	function usingJoin() {
-		console.log("Using Join & string concat");
-		let bears = ['panda', 'black', 'polar'].join('\n');
-		
-		console.log(bears);
+	function usingNormalObjects() {
+		console.log("Using normal ES5 object literal syntax");
 		
 		let bearType = 'black';
 		let sound = 'raaaaawwwrr';
 		
-		console.log("The " + bearType + " bear says " + sound);
+		let bear = { bearType: bearType, sound: sound };
+		
+		console.log(`Here is our bear: ${bear.bearType}, ${bear.sound}`);
+		
+		bear.bearType = "brown";
+		bear.sound = "zzZzzzZzz";
+		
+		bearType = bear.bearType;
+		sound = bear.sound;
+		
+		console.log(`Our ${bearType} bear says ${sound}`);
 	}
 
-	function usingTemplateStrings() {
-		console.log("Using template strings");
-		let bears = `
-			grizzly
-			panda
-			black
-			`;
-		
-		console.log(bears);
+	function usingDestructuring() {
+		console.log("Using object literal destructuring");
 		
 		let bearType = 'black';
 		let sound = 'raaaaawwwrr';
 		
-		console.log(`The ${bearType} says ${sound}`);
+		let bear = { bearType, sound };
+		
+		console.log(`Here is our bear: ${bear.bearType}, ${bear.sound}`);
+		
+		bear.bearType = "brown";
+		bear.sound = "zzZzzzZzz";
+		
+		// Because code blocks begin with a curly brace, statements must not begin with one.
+		// We must wrap this destructuring in ()
+		({ bearType, sound } = bear);
+		
+		console.log(`Our ${bearType} bear says ${sound}`);
 	}
 } ());
