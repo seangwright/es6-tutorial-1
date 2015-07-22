@@ -1,42 +1,25 @@
 (function () {
 	'use strict';
 
-	usingExtends();
+	usingNormalFunction();
+	usingArrowFunction();
 
-	function usingExtends() {
-		console.log("Using a extends to 'inherit' from a class");
-		class Bear {
-			constructor(color) {
-				this.color = color;
-			}
+	function usingNormalFunction() {
+		console.log("Using a normal function");
+		
+		var goodBears = ['panda', 'black', 'grizzly', 'polar'].filter(function(value, index, array) {
+			if (value != 'grizzly' && value != 'polar') return true;
+			return false;
+		});
+		
+		console.log(goodBears);
+	}
 
-			sayHello() {
-				console.log("Hello, I am a " + this.color + " bear");
-			}
-		}
+	function usingArrowFunction() {
+		console.log("Using an arrow function");
 		
-		let brownBear = new Bear("brown");
-
-		brownBear.sayHello();
+		var goodBears = ['panda', 'black', 'grizzly', 'polar'].filter((bear) => (bear != 'grizzly' && bear != 'polar'));
 		
-		class BlackBear extends Bear {
-			constructor() {
-				super("black");
-			}
-			
-			eatBerries(numberOfBerries) {
-				if (numberOfBerries < 10) {
-					console.log("I'm still hungry");
-				} else {
-					console.log("Nom nom nom");
-				}
-			}
-		}
-		
-		let blackBear = new BlackBear();
-		
-		blackBear.sayHello();
-		blackBear.eatBerries(4);
-		blackBear.eatBerries(30);
+		console.log(goodBears);
 	}
 } ());
